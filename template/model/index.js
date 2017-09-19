@@ -1,6 +1,16 @@
-/* eslint-disable */
+<% if(data.error){ %>
+export default(opts) => {
+    return instance({
+        method: '<%- data.method %>',
+        url: '<%- data.url %>',
+        opts: opts
+    });
+}
+<% }else} %>
 import instance from './instance';
-
+<% for(var item in data){ %>
+  <%- item %>
+<% } %>
 class MyModel {
     myProp;
 
@@ -15,7 +25,7 @@ class MyModel {
         this.myProp = value;
     }
 }
-
+    <%- JSON.stringify(data) %>
 export default(opts) => {
     return instance({
         method: '<%- data.method %>',
@@ -25,3 +35,4 @@ export default(opts) => {
         return new MyModel(data);
     });
 }
+<% } %>
