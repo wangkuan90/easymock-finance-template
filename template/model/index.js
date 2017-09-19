@@ -8,10 +8,9 @@ export default(opts) => {
 }
 <% }else{ %>
 import instance from './instance';
-<% for(var item in data){ %>
-  <%- item %>
-<% } %>
-class MyModel {
+<% for(var item in data.response_model){ %>
+  <% if(item !== 'data'){ %>
+class <%- item %> {
     myProp;
 
     constructor(data) {
@@ -25,7 +24,8 @@ class MyModel {
         this.myProp = value;
     }
 }
-    <%- JSON.stringify(data) %>
+  <% } %>
+<% } %>
 export default(opts) => {
     return instance({
         method: '<%- data.method %>',
