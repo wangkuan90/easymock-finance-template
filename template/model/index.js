@@ -6,7 +6,7 @@ export default(opts) => {
         opts: opts
     });
 }
-<% }else} %>
+<% }else{ %>
 import instance from './instance';
 <% for(var item in data){ %>
   <%- item %>
