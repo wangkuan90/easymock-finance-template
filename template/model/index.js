@@ -8,11 +8,15 @@ export default(opts) => {
 }
 <% }else{ %>
 import instance from './instance';
-<% for(var item in data.response_model){ %>
-  <% if(item !== 'data'){ %>
-class <%- item %> {
-    myProp;
-
+<% _.mapKeys(data.response_model, function(value, key){ %>
+  <% if(key !== 'data'){ %>
+class <%- key %> {
+    <% _.mapKeys(value, function(cellValue, cellKey){ %>
+      <% if(cellValue.description){ %>
+        // cellValue.description
+      <% } %>
+      <%- cellKey %>;
+    <% }) %>
     constructor(data) {
         this._setMyProp(data.myProp);
     }
@@ -25,7 +29,7 @@ class <%- item %> {
     }
 }
   <% } %>
-<% } %>
+<% }) %>
 export default(opts) => {
     return instance({
         method: '<%- data.method %>',
