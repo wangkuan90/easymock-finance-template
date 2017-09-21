@@ -1,6 +1,6 @@
 import instance from './instance';
 <%- data %>
-<%- JSON.stringify(data) %>
+<%- JSON.stringify(data.error) %>
 <% if(data.error){ %>
 export default(opts) => {
     return instance({
