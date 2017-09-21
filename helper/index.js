@@ -1,3 +1,5 @@
+const normalTypeArr = ['string', 'object', 'boolean'];
+
 exports.convertUrl = function(url) {
     // /restful/:id/:list/{id} -> restful_id_list_id
     // /restful/:id/:list/{id}.json -> restful_id_list_id
@@ -16,4 +18,10 @@ exports.getMethodName = function(name = '') {
         });
     }
     return name;
+};
+/**
+ * @param {Object} type  object, string, boolean is Normal Type
+ */
+exports.isNormalType = function(type = '') {
+    return normalTypeArr.indexOf(type) > -1;
 };
