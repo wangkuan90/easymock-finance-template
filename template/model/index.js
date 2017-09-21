@@ -1,7 +1,5 @@
 import instance from './instance';
-<%- data %>
-<%- JSON.stringify(data.error) %>
-<% if(data.error){ %>
+<% if(data.response_model.error){ %>
 export default(opts) => {
     return instance({
         method: '<%- data.method %>',
