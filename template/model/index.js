@@ -48,7 +48,7 @@ class <%- key %> {
 }
   <% } %>
 <% }) %>
-export default(opts) => {
+export default (opts) => {
     return instance({
         method: '<%- data.method %>',
         url: '<%- data.url %>',
