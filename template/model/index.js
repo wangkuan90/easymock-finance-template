@@ -9,6 +9,13 @@ export default(opts) => {
 }
 <% }else{ %>
 <% _.mapKeys(data.response_model, function(value, key){ %>
+<% if(value.type === 'array'){ %>
+class <%- value.modelType %>Array {
+    constructor(data) {
+        return data.map(value => new <%- value.modelType %>(value));
+    }
+}
+<% } %>
   <% if(key !== 'data'){ %>
 class <%- key %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
@@ -47,7 +54,16 @@ export default(opts) => {
         url: '<%- data.url %>',
         opts: opts
     }).then(data => {
-        return new MyModel(data);
+        return new 
+        <% _.mapKeys(data.response_model, function(value, key){ %>
+            <% if(key === 'data') %>
+                <% if(value.type === 'array') %>
+                    return new <%- value.modelType %>Array(data);
+                <% }else{ %>
+                    return new <%- value.modelType %>(data);
+                <% } %>
+            <% } %>
+        <% }) %>
     });
 }
 <% } %>
