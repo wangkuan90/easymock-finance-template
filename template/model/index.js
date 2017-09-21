@@ -57,7 +57,7 @@ export default(opts) => {
         return new 
         <% _.mapKeys(data.response_model, function(value, key){ %>
             <% if(key === 'data') %>
-                <% if(value.type === 'array') %>
+                <% if(value.type === 'array'){ %>
                     return new <%- value.modelType %>Array(data);
                 <% }else{ %>
                     return new <%- value.modelType %>(data);
