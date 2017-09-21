@@ -13,20 +13,25 @@ import instance from './instance';
 class <%- key %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
       <% if(cellValue.description){ %>
-        // cellValue.description
+       // <%- cellValue.description %> 
+       // type @<%- cellValue.type %> 
       <% } %>
       <%- cellKey %>;
     <% }) %>
     constructor(data) {
-        this._setMyProp(data.myProp);
+        <% _.mapKeys(value, function(cellValue, cellKey){ %>
+          this.<%- $$.getMethodName(cellKey) %>(data.<%- cellKey %>);
+        <% }) %>
     }
-
-    _setMyProp(value) {
-        if(typeof value !== 'string') {
-            console.log('error');
-        }
-        this.myProp = value;
-    }
+    
+    <% _.mapKeys(value, function(cellValue, cellKey){ %>
+          <%- $$.getMethodName(cellKey) %>() (value) {
+            if(typeof value !== 'string') {
+                console.log('error');
+            }
+            this.<%- cellKey %> = value;
+         }
+    <% }) %>
 }
   <% } %>
 <% }) %>
