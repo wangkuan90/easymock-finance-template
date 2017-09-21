@@ -12,6 +12,7 @@ import instance from './instance';
   <% if(key !== 'data'){ %>
 class <%- key %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
+      <% if(cellKey === '_id_'){ continue;} %>
       <% if(cellValue.description){ %>
        // <%- cellValue.description %> 
        // type @<%- cellValue.type %> 
@@ -20,11 +21,13 @@ class <%- key %> {
     <% }) %>
     constructor(data) {
         <% _.mapKeys(value, function(cellValue, cellKey){ %>
+          <% if(cellKey === '_id_'){ continue;} %>
           this.<%- $$.getMethodName(cellKey) %>(data.<%- cellKey %>);
         <% }) %>
     }
     
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
+          <% if(cellKey === '_id_'){ continue;} %>
           <%- $$.getMethodName(cellKey) %>() (value) {
             if(typeof value !== 'string') {
                 console.log('error');
