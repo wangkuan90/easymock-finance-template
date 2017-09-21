@@ -1,3 +1,5 @@
+import instance from './instance';
+<%- data.error %>
 <% if(data.error){ %>
 export default(opts) => {
     return instance({
@@ -7,7 +9,6 @@ export default(opts) => {
     });
 }
 <% }else{ %>
-import instance from './instance';
 <% _.mapKeys(data.response_model, function(value, key){ %>
   <% if(key !== 'data'){ %>
 class <%- key %> {
