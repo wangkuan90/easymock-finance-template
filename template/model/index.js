@@ -61,7 +61,7 @@ export default (opts) => {
                 <% }else if($$.isNormalType(value.type)){ %>
                     return data;
                 <% }else{ %>
-                    return new <%- value.modelType %>(data);
+                    return new <%- $$.filterMethodName(value.modelType) %>(data);
                 <% } %>
             <% } %>
         <% }) %>
