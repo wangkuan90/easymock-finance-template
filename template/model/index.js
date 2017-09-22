@@ -17,7 +17,7 @@ class <%- value.modelType %>Array {
 }
 <% } %>
   <% if(key !== 'data'){ %>
-class <%- key %> {
+class <%- $$.filterMethodName(key) %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
       <% if(cellKey !== '_id_'){ %>
           <% if(cellValue.description){ %>

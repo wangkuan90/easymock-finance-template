@@ -1,4 +1,10 @@
 const normalTypeArr = ['string', 'object', 'boolean'];
+/**
+ * @desc 过滤方法名称
+ */
+const filterMethodName = function(name = '') {
+    return name.replace(/[^a-zA-Z]/g, '');
+}
 
 exports.convertUrl = function(url) {
     // /restful/:id/:list/{id} -> restful_id_list_id
@@ -13,12 +19,15 @@ exports.convertUrl = function(url) {
 exports.getMethodName = function(name = '') {
     // name -> _setName
     if(typeof name === 'string' && name.length > 0) {
-        return '_set' + name.replace(/^\S/, function(s) {
+        name = '_set' + name.replace(/^\S/, function(s) {
             return s.toUpperCase();
         });
+        return filterMethodName(name);
     }
     return name;
 };
+
+exports.filterMethodName = filterMethodName;
 /**
  * @param {Object} type  object, string, boolean is Normal Type
  */
