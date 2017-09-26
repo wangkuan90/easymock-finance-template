@@ -38,6 +38,7 @@ class <%- $$.filterMethodName(key) %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
           <% if(cellKey !== '_id_'){ %>
               <%- $$.getMethodName(cellKey) %>() (value) {
+                // TODO
                 if(typeof value !== 'string') {
                     console.log('error');
                 }
