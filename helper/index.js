@@ -28,6 +28,12 @@ exports.getMethodName = function(name = '') {
 };
 
 exports.filterMethodName = filterMethodName;
+
+exports.getMethodName2 = function(name = '') {
+    var arr =  name.split('/');
+    return filterMethodName(arr[arr.length - 1]);
+}
+
 /**
  * @param {Object} type  object, string, boolean is Normal Type
  */
