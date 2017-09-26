@@ -37,7 +37,7 @@ class <%- $$.filterMethodName(key) %> {
     
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
           <% if(cellKey !== '_id_'){ %>
-              <%- $$.getMethodName(cellKey) %>() (value) {
+              <%- $$.getMethodName(cellKey) %>(value) {
                   <% if(cellValue.type === 'array'){ %>
                       if(typeof value !== 'object') {
                           console.log('error');
@@ -45,9 +45,6 @@ class <%- $$.filterMethodName(key) %> {
                       return value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else{ %>
                       // TODO
-                      if(typeof value !== 'string') {
-                          console.log('error');
-                      }
                       this.<%- cellKey %> = value;
                   <% } %>
              }
