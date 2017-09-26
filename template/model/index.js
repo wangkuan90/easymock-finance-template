@@ -38,11 +38,15 @@ class <%- $$.filterMethodName(key) %> {
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
           <% if(cellKey !== '_id_'){ %>
               <%- $$.getMethodName(cellKey) %>() (value) {
-                // TODO
-                if(typeof value !== 'string') {
-                    console.log('error');
-                }
-                this.<%- cellKey %> = value;
+                  <% if(cellValue.type === 'array'){ %>
+                      return value.map(item => new <%- cellValue.type %>(item));
+                  <% }else{ %>
+                      // TODO
+                      if(typeof value !== 'string') {
+                          console.log('error');
+                      }
+                      this.<%- cellKey %> = value;
+                  <% } %>
              }
           <% } %>
     <% }) %>
