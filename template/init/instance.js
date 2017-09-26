@@ -1,11 +1,11 @@
-import { createAPI } from '<%- $$.relative("util") %>';
+import Util from '<%- $$.relative("util") %>';
 import config from '<%- $$.relative("config") %>';
 
 const baseUrl = {
-	mock: 'https://www.easy-mock.com/mock/<%- data.project._id %><%- data.project.url %>',
+	mock: 'https://mock.souche-inc.com/mock<%- data.project._id %><%- data.project.url %>',
 	development: '',
 	prepub: '',
 	production: ''
 }[config.env || 'mock'];
 
-export default createAPI(baseUrl);
+export default Util.<%- projectName %>(baseUrl);

@@ -1,4 +1,4 @@
-import instance from './instance';
+import instance from '../instance';
 <% if(data.response_model.error){ %>
 export default(opts) => {
     return instance({
@@ -42,7 +42,7 @@ class <%- $$.filterMethodName(key) %> {
                       if(typeof value !== 'object') {
                           console.log('error');
                       }
-                      return value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
+                      this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else{ %>
                       // TODO
                       this.<%- cellKey %> = value;

@@ -18,8 +18,8 @@ const ajax = (url, params = {}) => {
     });
 };
 
-export default {
-    modelName(baseURL) {
+export default {<% _.forEach(config.projects, function(project, i){ %>
+    <%- $$.convertUrl(project.name) %>(baseURL) {
         return (params) => {
             // TODO 请求预处理
             params.opts = params.opts || {};
@@ -28,5 +28,5 @@ export default {
                 type: params.method
             });
         };
-    }
+    }<% if(config.projects.length - 1 !== i) { %>,<% } %><% }) %>
 };
