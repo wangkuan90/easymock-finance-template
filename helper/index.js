@@ -29,6 +29,10 @@ exports.getMethodName = function(name = '') {
 
 exports.filterMethodName = filterMethodName;
 
+exports.filterDescription = function(description){
+    return description.replace(/\/n/g, '');
+};
+
 exports.getMethodName2 = function(name = '') {
     var arr =  name.split('/');
     return filterMethodName(arr[arr.length - 1]);

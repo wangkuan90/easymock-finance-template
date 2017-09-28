@@ -1,5 +1,4 @@
 import instance from '../instance';
-import DataCheck from 'datacheck';
 <% if(data.response_model.error){ %>
 export default (opts) => {
     return instance({
@@ -9,6 +8,7 @@ export default (opts) => {
     });
 }
 <% }else{ %>
+import DataCheck from 'datacheck';
 const dataCheckUrl = '<%- data.url %>';
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
@@ -23,8 +23,7 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
       <% if(cellKey !== '_id_'){ %>
           <% if(cellValue.description){ %>
-           // <%- cellValue.description %> 
-           // type @<%- cellValue.type %> 
+           // <%- $$.filterDescription(cellValue.description) %> 
           <% } %>
           <%- cellKey %>;
        <% } %>
