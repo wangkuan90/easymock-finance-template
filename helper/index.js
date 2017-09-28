@@ -19,10 +19,10 @@ exports.convertUrl = function(url) {
 exports.getMethodName = function(name = '') {
     // name -> _setName
     if(typeof name === 'string' && name.length > 0) {
-        name = '_set' + name.replace(/^\S/, function(s) {
+        name = 'set' + name.replace(/^\S/, function(s) {
             return s.toUpperCase();
         });
-        return filterMethodName(name);
+        return '_' + filterMethodName(name);
     }
     return name;
 };
