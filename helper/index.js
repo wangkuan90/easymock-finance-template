@@ -30,7 +30,7 @@ exports.getMethodName = function(name = '') {
 exports.filterMethodName = filterMethodName;
 
 exports.filterDescription = function(description){
-    return description.replace(/\/n/g, '');
+    return description.replace(/[\n]/ig, '');
 };
 
 exports.getMethodName2 = function(name = '') {
