@@ -42,9 +42,7 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
           <% if(cellKey !== '_id_'){ %>
               <%- $$.getMethodName(cellKey) %>(value) {
                   <% if(cellValue.type === 'array'){ %>
-                      if(typeof value !== 'object') {
-                          console.log('error');
-                      }
+                      this.isArray('<%- cellKey %>', value);
                       this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else{ %>
                       // TODO
