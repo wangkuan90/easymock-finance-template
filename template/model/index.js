@@ -1,6 +1,7 @@
 import instance from '../instance';
+import DataCheck from 'datacheck';
 <% if(data.response_model.error){ %>
-export default(opts) => {
+export default (opts) => {
     return instance({
         method: '<%- data.method %>',
         url: '<%- data.url %>',
@@ -8,6 +9,7 @@ export default(opts) => {
     });
 }
 <% }else{ %>
+const dataCheckUrl = <%- data.url %>;
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
 class <%- value.modelType %>Array {
@@ -17,7 +19,7 @@ class <%- value.modelType %>Array {
 }
 <% } %>
   <% if(key !== 'data'){ %>
-class <%- $$.filterMethodName(key) %> {
+class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
     <% _.mapKeys(value, function(cellValue, cellKey){ %>
       <% if(cellKey !== '_id_'){ %>
           <% if(cellValue.description){ %>
@@ -28,6 +30,7 @@ class <%- $$.filterMethodName(key) %> {
        <% } %>
     <% }) %>
     constructor(data) {
+        super(dataCheckUrl);
         <% _.mapKeys(value, function(cellValue, cellKey){ %>
           <% if(cellKey !== '_id_'){ %>
             this.<%- $$.getMethodName(cellKey) %>(data.<%- cellKey %>);
@@ -45,6 +48,13 @@ class <%- $$.filterMethodName(key) %> {
                       this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else{ %>
                       // TODO
+                      <% if(cellValue.type === 'string'){ %>
+                      this.isString('<%- cellKey %>', value);
+                      <% }else if(cellValue.type === 'boolean'){ %>
+                      this.isBoolean('<%- cellKey %>', value);
+                      <% }else if(cellValue.type === 'integer'){ %>
+                      this.isInteger('<%- cellKey %>', value);
+                      <% } %>
                       this.<%- cellKey %> = value;
                   <% } %>
              }
