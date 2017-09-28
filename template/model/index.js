@@ -9,7 +9,7 @@ export default (opts) => {
     });
 }
 <% }else{ %>
-const dataCheckUrl = <%- data.url %>;
+const dataCheckUrl = '<%- data.url %>';
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
 class <%- value.modelType %>Array {
