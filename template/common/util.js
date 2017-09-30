@@ -1,9 +1,13 @@
 import Http from '@souche-f2e/http-request';
+import config from './config';
 
 const ajax = (url, params = {}) => {
     params.url = url;
     params.type = params.type || 'get';
     return Http.ajax(params).then(res => {
+        if(config.env === 'mock') {
+            return res.data;
+        }
         if (res.code === '10001') {
             // TODO 退出登录
         }
