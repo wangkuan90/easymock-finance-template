@@ -43,7 +43,7 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
                   <% if(cellValue.type === 'array'){ %>
                       this.isArray('<%- cellKey %>', value);
                       this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
-                  <% }else{ %>
+                  <% }else if(cellValue.type){ %>
                       // TODO
                       <% if(cellValue.type === 'string'){ %>
                       this.isString('<%- cellKey %>', value);
@@ -53,6 +53,8 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
                       this.isInteger('<%- cellKey %>', value);
                       <% } %>
                       this.<%- cellKey %> = value;
+                  <% }else{ %>
+                      this.<%- cellKey %> = new <%- $$.getMethodName2(cellValue.items.$ref) %>(value);
                   <% } %>
              }
           <% } %>
