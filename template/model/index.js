@@ -12,9 +12,9 @@ import DataCheck from 'datacheck';
 const dataCheckUrl = '<%- data.url %>';
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
-class <%- value.modelType %>Array {
+class <%- $$.filterMethodName(value.modelType) %>Array {
     constructor(data) {
-        return data.map(value => new <%- value.modelType %>(value));
+        return data.map(value => new <%- $$.filterMethodName(value.modelType) %>(value));
     }
 }
 <% } %>
@@ -70,7 +70,7 @@ export default (opts) => {
         <% _.mapKeys(data.response_model, function(value, key){ %>
             <% if(key === 'data'){ %>
                 <% if(value.type === 'array'){ %>
-                    return new <%- value.modelType %>Array(data);
+                    return new <%- $$.filterMethodName(value.modelType) %>Array(data);
                 <% }else if($$.isNormalType(value.type)){ %>
                     return data;
                 <% }else{ %>
