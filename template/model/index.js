@@ -54,7 +54,7 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
                       <% } %>
                       this.<%- cellKey %> = value;
                   <% }else{ %>
-                      this.<%- cellKey %> = new <%- $$.getMethodName2(cellValue.items.$ref) %>(value);
+                      this.<%- cellKey %> = new <%- $$.getMethodName2(cellValue.$ref) %>(value);
                   <% } %>
              }
           <% } %>
