@@ -44,7 +44,6 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
                       this.isArray('<%- cellKey %>', value);
                       this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else if(cellValue.type){ %>
-                      // TODO
                       <% if(cellValue.type === 'string'){ %>
                       this.isString('<%- cellKey %>', value);
                       <% }else if(cellValue.type === 'boolean'){ %>
