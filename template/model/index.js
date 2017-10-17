@@ -10,6 +10,37 @@ export default (opts) => {
 <% }else{ %>
 import DataCheck from 'datacheck';
 const dataCheckUrl = '<%- data.url %>';
+
+<% if(data.parameters.length > 0){ %>
+class ParamsDTo extends DataCheck.Response{
+<% _.mapKeys(data.parameters, function(value, key){ %>
+  // <%- $$.filterDescription(value.description) %>
+  <%- value.name %>;
+<% }) %>
+    constructor(data) {
+      super(dataCheckUrl);
+      <% _.mapKeys(data.parameters, function(value, key){ %>
+        this.<%- $$.getMethodName(value) %>(data.<%- key %>);
+      <% }) %>
+    }
+    
+    <% _.mapKeys(data.parameters, function(value, key){ %>
+        <%- $$.getMethodName(value) %>(value) {
+          <% if(value.type === 'string'){ %>
+          this.isString('<%- key %>', value);
+          <% }else if(value.type === 'boolean'){ %>
+          this.isBoolean('<%- key %>', value);
+          <% }else if(value.type === 'integer'){ %>
+          this.isInteger('<%- key %>', value);
+          <% } %>
+          this.<%- key %> = value;
+        }
+    <% }) %>
+}
+<% } %>
+
+
+
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
 class <%- $$.filterMethodName(value.modelType) %>Array {
