@@ -26,6 +26,9 @@ class ParamsDTo extends DataCheck.Response{
     
     <% _.mapKeys(data.parameters, function(value, key){ %>
         <%- $$.getMethodName(value.name) %>(value) {
+          <% if(value.required){ %>
+          this.isRequired('<%- value.name %>', value);
+          <% } %>
           <% if(value.type === 'string'){ %>
           this.isString('<%- value.name %>', value);
           <% }else if(value.type === 'boolean'){ %>
