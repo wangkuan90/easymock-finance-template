@@ -17,7 +17,7 @@ class ParamsDTo extends DataCheck.Response{
   // <%- $$.filterDescription(value.description) %>
   <%- value.name %>;
 <% }) %>
-    constructor(data) {
+    constructor(data = {}) {
       super(dataCheckUrl);
       <% _.mapKeys(data.parameters, function(value, key){ %>
         this.<%- $$.getMethodName(value.name) %>(data.<%- value.name %>);
