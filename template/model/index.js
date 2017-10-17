@@ -39,8 +39,6 @@ class ParamsDTo extends DataCheck.Response{
 }
 <% } %>
 
-
-
 <% _.mapKeys(data.response_model, function(value, key){ %>
 <% if(value.type === 'array'){ %>
 class <%- $$.filterMethodName(value.modelType) %>Array {
@@ -93,6 +91,9 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
   <% } %>
 <% }) %>
 export default (opts) => {
+<% if(data.parameters.length > 0){ %>
+    opts = new ParamsDTo(opts);
+<% } %>
     return instance({
         method: '<%- data.method %>',
         url: '<%- data.url %>',
