@@ -20,20 +20,20 @@ class ParamsDTo extends DataCheck.Response{
     constructor(data) {
       super(dataCheckUrl);
       <% _.mapKeys(data.parameters, function(value, key){ %>
-        this.<%- $$.getMethodName(value) %>(data.<%- key %>);
+        this.<%- $$.getMethodName(value.name) %>(data.<%- value.name %>);
       <% }) %>
     }
     
     <% _.mapKeys(data.parameters, function(value, key){ %>
-        <%- $$.getMethodName(value) %>(value) {
+        <%- $$.getMethodName(value.name) %>(value) {
           <% if(value.type === 'string'){ %>
-          this.isString('<%- key %>', value);
+          this.isString('<%- value.name %>', value);
           <% }else if(value.type === 'boolean'){ %>
-          this.isBoolean('<%- key %>', value);
+          this.isBoolean('<%- value.name %>', value);
           <% }else if(value.type === 'integer'){ %>
-          this.isInteger('<%- key %>', value);
+          this.isInteger('<%- value.name %>', value);
           <% } %>
-          this.<%- key %> = value;
+          this.<%- value.name %> = value;
         }
     <% }) %>
 }
