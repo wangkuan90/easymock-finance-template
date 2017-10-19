@@ -33,10 +33,8 @@ class <%- $$.filterMethodName(value.modelType) %>Array {
 class <%- $$.filterMethodName(key) %> extends DataCheck.Response{<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
     <% if(cellValue.description){ %>// <%- $$.filterDescription(cellValue.description) %><% } %>
     <% if(cellValue.type !== 'array' && cellValue.type){ %><% if(cellValue.type === 'string'){ %>@DataCheck.isString<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'boolean'){ %>@DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'integer'){ %>@DataCheck.isInteger<%- cellValue.required ? '(true)' : '()' %><% } %><% } %> 
-    <%- cellKey %>;<% } %>
-    <% }) %>
-    
-    constructor(data) {
+    <%- cellKey %>;
+    <% } %><% }) %>constructor(data) {
         super(dataCheckUrl);<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
         this.<%- $$.getMethodName(cellKey) %>(data.<%- cellKey %>);<% } %><% }) %>
     }<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
