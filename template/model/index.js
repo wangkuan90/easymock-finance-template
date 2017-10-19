@@ -1,36 +1,26 @@
-import instance from '../instance';
-<% if(data.response_model.error){ %>
+import instance from '../instance';<% if(data.response_model.error){ %>
 export default (opts) => {
     return instance({
         method: '<%- data.method %>',
         url: '<%- data.url %>',
         opts: opts
     });
-}
-<% }else{ %>
+}<% }else{ %>
 import DataCheck from 'datacheck';
-const dataCheckUrl = '<%- data.url %>';
 
+const dataCheckUrl = '<%- data.url %>';
 <% if(data.parameters.length > 0){ %>
 class ParamsDTo extends DataCheck.Response{
 <% _.mapKeys(data.parameters, function(value, key){ %>
-  // <%- $$.filterDescription(value.description) %>
-    <% if(value.type === 'string'){ %>
-    @DataCheck.isString<%- value.required ? '(true)' : '()' %>
-    <% }else if(value.type === 'boolean'){ %>
-    @DataCheck.isBoolean<%- value.required ? '(true)' : '()' %>
-    <% }else if(value.type === 'integer'){ %>
-    @DataCheck.isInteger<%- value.required ? '(true)' : '()' %>
-    <% } %>
+    // <%- $$.filterDescription(value.description) %><% if(value.type === 'string'){ %>
+    @DataCheck.isString<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'boolean'){ %>@DataCheck.isBoolean<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'integer'){ %>@DataCheck.isInteger<%- value.required ? '(true)' : '()' %><% } %>
     <%- value.name %>;
 <% }) %>
     constructor(data = {}) {
-      super(dataCheckUrl);
-      <% _.mapKeys(data.parameters, function(value, key){ %>
-        this.<%- $$.getMethodName(value.name) %>(data.<%- value.name %>);
-      <% }) %>
+        super(dataCheckUrl);
+        <% _.mapKeys(data.parameters, function(value, key){ %>
+        this.<%- $$.getMethodName(value.name) %>(data.<%- value.name %>);<% }) %>
     }
-    
     <% _.mapKeys(data.parameters, function(value, key){ %>
         <%- $$.getMethodName(value.name) %>(value) {
           this.<%- value.name %> = value;
