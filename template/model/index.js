@@ -17,15 +17,12 @@ class ParamsDTo extends DataCheck.Response{
     <%- value.name %>;
 <% }) %>
     constructor(data = {}) {
-        super(dataCheckUrl);
-        <% _.mapKeys(data.parameters, function(value, key){ %>
+        super(dataCheckUrl);<% _.mapKeys(data.parameters, function(value, key){ %>
         this.<%- $$.getMethodName(value.name) %>(data.<%- value.name %>);<% }) %>
-    }
-    <% _.mapKeys(data.parameters, function(value, key){ %>
-        <%- $$.getMethodName(value.name) %>(value) {
-          this.<%- value.name %> = value;
-        }
-    <% }) %>
+    }<% _.mapKeys(data.parameters, function(value, key){ %>
+    <%- $$.getMethodName(value.name) %>(value) {
+        this.<%- value.name %> = value;
+    }<% }) %>
 }
 <% } %>
 
