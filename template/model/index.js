@@ -79,16 +79,8 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
           <% if(cellKey !== '_id_'){ %>
               <%- $$.getMethodName(cellKey) %>(value) {
                   <% if(cellValue.type === 'array'){ %>
-                      this.isArray('<%- cellKey %>', value);
                       this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));
                   <% }else if(cellValue.type){ %>
-                      <% if(cellValue.type === 'string'){ %>
-                      this.isString('<%- cellKey %>', value);
-                      <% }else if(cellValue.type === 'boolean'){ %>
-                      this.isBoolean('<%- cellKey %>', value);
-                      <% }else if(cellValue.type === 'integer'){ %>
-                      this.isInteger('<%- cellKey %>', value);
-                      <% } %>
                       this.<%- cellKey %> = value;
                   <% }else{ %>
                       this.<%- cellKey %> = new <%- $$.getMethodName2(cellValue.$ref) %>(value);
