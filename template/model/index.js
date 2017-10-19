@@ -55,7 +55,7 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
            // <%- $$.filterDescription(cellValue.description) %> 
           <% } %>
           <% if(cellValue.type !== 'array' && cellValue.type){ %>
-              % if(cellValue.type === 'string'){ %>
+              <% if(cellValue.type === 'string'){ %>
               @DataCheck.isString<%- cellValue.required ? '(true)' : '()' %>
               <% }else if(cellValue.type === 'boolean'){ %>
               @DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %>
