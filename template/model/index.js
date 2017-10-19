@@ -33,14 +33,15 @@ class <%- $$.filterMethodName(value.modelType) %>Array {
 class <%- $$.filterMethodName(key) %> extends DataCheck.Response{<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
 <% if(cellValue.description){ %>
     // <%- $$.filterDescription(cellValue.description) %><% } %><% if(cellValue.type !== 'array' && cellValue.type){ %><% if(cellValue.type === 'string'){ %>
-    @DataCheck.isString<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'boolean'){ %>@DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'integer'){ %>@DataCheck.isInteger<%- cellValue.required ? '(true)' : '()' %><% } %><% } %>
+    @DataCheck.isString<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'boolean'){ %>@DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'integer'){ %>@DataCheck.isInteger<%- cellValue.required ? '(true)' : '()' %><% } %><% } %> 
     <%- cellKey %>;<% } %><% }) %>
     
     constructor(data) {
         super(dataCheckUrl);<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
         this.<%- $$.getMethodName(cellKey) %>(data.<%- cellKey %>);<% } %><% }) %>
     }<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
-    <%- $$.getMethodName(cellKey) %>(value) {<% if(cellValue.type === 'array'){ %>
+    <%- $$.getMethodName(cellKey) %>(value) {
+        <% if(cellValue.type === 'array'){ %>
         this.<%- cellKey %> = value.map(item => new <%- $$.getMethodName2(cellValue.items.$ref) %>(item));<% }else if(cellValue.type){ %>this.<%- cellKey %> = value;<% }else{ %>this.<%- cellKey %> = new <%- $$.getMethodName2(cellValue.$ref) %>(value);<% } %>
     }<% } %><% }) %>
 }<% } %><% }) %>
@@ -51,7 +52,8 @@ export default (opts) => {<% if(data.parameters.length > 0){ %>
         method: '<%- data.method %>',
         url: '<%- data.url %>',
         opts: opts
-    }).then(data => {<% _.mapKeys(data.response_model, function(value, key){ %><% if(key === 'data'){ %><% if(value.type === 'array'){ %>
+    }).then(data => {
+        <% _.mapKeys(data.response_model, function(value, key){ %><% if(key === 'data'){ %><% if(value.type === 'array'){ %>
         return new <%- $$.filterMethodName(value.modelType) %>Array(data);<% }else if($$.isNormalType(value.type)){ %>return data;<% }else{ %>return new <%- $$.filterMethodName(value.modelType) %>(data);<% } %><% } %><% }) %>
     });
-}<% } %>
+};<% } %>
