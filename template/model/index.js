@@ -16,11 +16,11 @@ class ParamsDTo extends DataCheck.Response{
 <% _.mapKeys(data.parameters, function(value, key){ %>
   // <%- $$.filterDescription(value.description) %>
     <% if(value.type === 'string'){ %>
-    @DataCheck.isString<%- value.required ? '(true)' : '' %>
+    @DataCheck.isString<%- value.required ? '(true)' : '()' %>
     <% }else if(value.type === 'boolean'){ %>
-    @DataCheck.isBoolean<%- value.required ? '(true)' : '' %>
+    @DataCheck.isBoolean<%- value.required ? '(true)' : '()' %>
     <% }else if(value.type === 'integer'){ %>
-    @DataCheck.isInteger<%- value.required ? '(true)' : '' %>
+    @DataCheck.isInteger<%- value.required ? '(true)' : '()' %>
     <% } %>
     <%- value.name %>;
 <% }) %>
@@ -53,6 +53,15 @@ class <%- $$.filterMethodName(key) %> extends DataCheck.Response{
       <% if(cellKey !== '_id_'){ %>
           <% if(cellValue.description){ %>
            // <%- $$.filterDescription(cellValue.description) %> 
+          <% } %>
+          <% if(cellValue.type !== 'array' && cellValue.type){ %>
+              % if(cellValue.type === 'string'){ %>
+              @DataCheck.isString<%- cellValue.required ? '(true)' : '()' %>
+              <% }else if(cellValue.type === 'boolean'){ %>
+              @DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %>
+              <% }else if(cellValue.type === 'integer'){ %>
+              @DataCheck.isInteger<%- cellValue.required ? '(true)' : '()' %>
+              <% } %>
           <% } %>
           <%- cellKey %>;
        <% } %>
