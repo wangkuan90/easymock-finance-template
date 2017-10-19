@@ -12,8 +12,8 @@ const dataCheckUrl = '<%- data.url %>';
 <% if(data.parameters.length > 0){ %>
 class ParamsDTo extends DataCheck.Response{
 <% _.mapKeys(data.parameters, function(value, key){ %>
-    // <%- $$.filterDescription(value.description) %><% if(value.type === 'string'){ %>
-    @DataCheck.isString<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'boolean'){ %>@DataCheck.isBoolean<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'integer'){ %>@DataCheck.isInteger<%- value.required ? '(true)' : '()' %><% } %>
+    // <%- $$.filterDescription(value.description) %>
+    <% if(value.type === 'string'){ %>@DataCheck.isString<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'boolean'){ %>@DataCheck.isBoolean<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'integer'){ %>@DataCheck.isInteger<%- value.required ? '(true)' : '()' %><% } %>
     <%- value.name %>;
 <% }) %>
     constructor(data = {}) {
