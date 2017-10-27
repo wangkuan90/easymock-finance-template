@@ -6,14 +6,14 @@ export default (opts) => {
         opts: opts
     });
 }<% }else{ %>
-import DataCheck from 'datacheck';
+import SoucheModel from 'datacheck';
 
 const dataCheckUrl = '<%- data.url %>';
 <% if(data.parameters.length > 0){ %>
-class ParamsDTo extends DataCheck.Response{
+class ParamsDTo extends SoucheModel.Response{
 <% _.mapKeys(data.parameters, function(value, key){ %>
     // <%- $$.filterDescription(value.description) %>
-    <% if(value.type === 'string'){ %>@DataCheck.isString<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'boolean'){ %>@DataCheck.isBoolean<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'integer'){ %>@DataCheck.isInteger<%- value.required ? '(true)' : '()' %><% } %>
+    <% if(value.type === 'string'){ %>@SoucheModel.isString<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'boolean'){ %>@SoucheModel.isBoolean<%- value.required ? '(true)' : '()' %><% }else if(value.type === 'integer'){ %>@SoucheModel.isInteger<%- value.required ? '(true)' : '()' %><% } %>
     <%- value.name %>;
 <% }) %>
     constructor(data = {}) {
@@ -30,9 +30,9 @@ class <%- $$.filterMethodName(value.modelType) %>Array {
         return data.map(value => new <%- $$.filterMethodName(value.modelType) %>(value));
     }
 }<% } %><% if(key !== 'data'){ %>
-class <%- $$.filterMethodName(key) %> extends DataCheck.Response{<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
+class <%- $$.filterMethodName(key) %> extends SoucheModel.Response{<% _.mapKeys(value, function(cellValue, cellKey){ %><% if(cellKey !== '_id_'){ %>
     <% if(cellValue.description){ %>// <%- $$.filterDescription(cellValue.description) %><% } %>
-    <% if(cellValue.type !== 'array' && cellValue.type){ %><% if(cellValue.type === 'string'){ %>@DataCheck.isString<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'boolean'){ %>@DataCheck.isBoolean<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'integer'){ %>@DataCheck.isInteger<%- cellValue.required ? '(true)' : '()' %><% } %><% } %> 
+    <% if(cellValue.type !== 'array' && cellValue.type){ %><% if(cellValue.type === 'string'){ %>@SoucheModel.isString<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'boolean'){ %>@SoucheModel.isBoolean<%- cellValue.required ? '(true)' : '()' %><% }else if(cellValue.type === 'integer'){ %>@SoucheModel.isInteger<%- cellValue.required ? '(true)' : '()' %><% } %><% } %> 
     <%- cellKey %>;
     <% } %><% }) %>
     constructor(data) {
